@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HobbyMatcher</string>
+    <string name="hobby">趣味</string>
+    <string name="action_settings">Settings</string>
+    <string name="beam_text">Beam!!!</string>
+    <string name="add_hobby">追加</string>
+    <string name="edit_hobby_message">例：サッカー</string>
+    <string name="beam">ビーム</string>
+    <string name="beam_title">びーむ</string>
+
+</resources>

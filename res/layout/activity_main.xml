@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dip"
+    android:orientation="vertical"
+    tools:context="com.example.hobbymatcher.MainActivity" >
+    
+    <Button
+        android:id="@+id/beam_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/beam"/>
+    
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:stretchColumns="1" >
+	
+	    <TableRow
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+	        
+	    	<TextView
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/hobby" />
+	    	
+	    	<EditText
+	    	    android:id="@+id/added_hobby_name"
+	    	    android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:hint="@string/edit_hobby_message" />
+	    
+	    </TableRow>
+	    <Button
+	        android:id="@+id/add_button"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/add_hobby"
+	        />
+	
+	</TableLayout>
+</LinearLayout>
