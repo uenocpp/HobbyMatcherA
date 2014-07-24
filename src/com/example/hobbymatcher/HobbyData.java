@@ -1,3 +1,4 @@
+
 package com.example.hobbymatcher;
 
 import static android.provider.BaseColumns._ID;
@@ -10,21 +11,21 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class Hobbies extends SQLiteOpenHelper{
+public class HobbyData extends SQLiteOpenHelper{
 
 	private static final String DATABASE_NAME = "hobbies.db";
 	private static final int DATABASE_VERSION = 1;
 
-	public Hobbies( Context ctx ){
+	public HobbyData( Context ctx ){
 		super( ctx, DATABASE_NAME, null, DATABASE_VERSION  );
 	}
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL( "create table" + TABLE_NAME + "(" + _ID + " integer primary key autoincrement, "
+		db.execSQL( "create table " + TABLE_NAME + "(" + _ID + " integer primary key autoincrement, "
 				+ HOBBY_NAME + " text not null, "
 				+ CATEGORY + " text, "
-				+ INTEREST_LEVEL + " integer defualt 0 );");
+				+ INTEREST_LEVEL + " integer default 0 );");
 	}
 
 	@Override
