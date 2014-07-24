@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class Beam extends Activity implements CreateNdefMessageCallback {
 
 	private static final String TAG = "BEAM";
+	HobbyList hobbyList;
 	NfcAdapter mNfcAdapter;
 
 	@Override
@@ -32,11 +33,14 @@ public class Beam extends Activity implements CreateNdefMessageCallback {
 			return;
 		}
 		mNfcAdapter.setNdefPushMessageCallback(this, this);
+		
+		// HobbyData
+		hobbyList = new HobbyList( this );
 	}
 	
 	@Override
 	public NdefMessage createNdefMessage(NfcEvent event) {
-		String text = "beam beam beam";
+		String text = HobbyList.toJson( hobbyList );
 		NdefMessage msg = new NdefMessage(
 				new NdefRecord[]{ NdefRecord.createMime(
 						"application/com.example.hobbymatcher", text.getBytes())});
