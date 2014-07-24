@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="19"
         android:targetSdkVersion="21" />
-    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature android:name="android.hardware.nfc" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,11 @@
         <activity
             android:name=".Beam"
             android:label="@string/beam_title">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/com.example.hobbymatcher" />
+            </intent-filter>
         </activity>
     </application>
 
