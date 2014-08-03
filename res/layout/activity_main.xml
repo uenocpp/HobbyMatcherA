@@ -23,11 +23,22 @@
         android:layout_height="wrap_content"
         android:hint="@string/edit_hobby_message" />
 
+   	<!-- 
+   	<TextView 
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:text="@string/category" />
+   	
+   	<Spinner
+   	    android:id="@+id/spinner_category"
+   	    android:layout_width="match_parent"
+        android:layout_height="wrap_content" /> -->
+   	
 	<Button
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_hobby" />
+        android:text="@string/add_hobby" /> 
 
 	<ListView
 	    android:id="@+id/hobby_list"

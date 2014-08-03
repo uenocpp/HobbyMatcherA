@@ -7,6 +7,7 @@ import static com.example.hobbymatcher.Constants.INTEREST_LEVEL;
 import static com.example.hobbymatcher.Constants.TABLE_NAME;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -16,7 +17,11 @@ import android.database.sqlite.SQLiteDatabase;
 import com.google.gson.Gson;
 
 public class HobbyList {
-	List< Hobby > hobbyList = new ArrayList< Hobby >();
+	private List< Hobby > hobbyList = new ArrayList< Hobby >();
+	
+	List< Hobby > getHobbyList(){
+		return hobbyList;
+	}
 	
 	HobbyList( Context ctx ){
 		HobbyData hobbyData = new HobbyData( ctx );
@@ -28,6 +33,29 @@ public class HobbyList {
 		finally{
 			hobbyData.close();
 		}
+	}
+	
+	public static List< Hobby > matchHobbies( List< Hobby > mine, List< Hobby > his ){
+		List< Hobby > matched = new ArrayList< Hobby >();
+		List< Hobby > a = new ArrayList< Hobby >( mine );
+		List< Hobby > b = new ArrayList< Hobby >( his );
+		HobbyComparator comp = new HobbyComparator();
+		Collections.sort( a, comp );
+		Collections.sort( b, comp );
+		for( int i = 0, j = 0; i < a.size() && j < b.size(); ){
+			Hobby l = a.get( i ), r = b.get( j );
+			if( comp.compare( l, r ) == 0 ){
+				matched.add( r ); // ‘ŠŽè‚Ìî•ñ‚ð’Ç‰Á‚·‚éBl‚ÍŽ©•ªB
+				i++; j++;
+			}
+			else if( comp.compare( l, r ) < 0 ){
+				i++;
+			}
+			else{
+				j++;
+			}
+		}
+		return matched;
 	}
 	
 	private void loadHobbyData( Cursor cursor ){

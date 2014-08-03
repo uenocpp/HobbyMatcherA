@@ -119,7 +119,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			builder.append( name ).append( ": ");
 			builder.append( category ).append( ": " );
 			builder.append( interest );
-			adapter.add( builder.toString() );
+			//adapter.add( builder.toString() );
+			adapter.add( name );
 		}
 	}
 	

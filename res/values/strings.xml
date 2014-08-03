@@ -9,5 +9,6 @@
     <string name="edit_hobby_message">例：サッカー</string>
     <string name="beam">ビーム</string>
     <string name="beam_title">びーむ</string>
+    <string name="category">カテゴリー</string>
 
 </resources>

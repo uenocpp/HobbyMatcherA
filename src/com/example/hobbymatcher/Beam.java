@@ -1,5 +1,7 @@
 package com.example.hobbymatcher;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.nfc.NdefMessage;
@@ -10,6 +12,8 @@ import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +21,9 @@ import android.widget.Toast;
 public class Beam extends Activity implements CreateNdefMessageCallback {
 
 	private static final String TAG = "BEAM";
-	HobbyList hobbyList;
-	NfcAdapter mNfcAdapter;
+	private HobbyList myHobbyList;
+	private NfcAdapter mNfcAdapter;
+	private ArrayAdapter<String> arrayAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -35,12 +40,17 @@ public class Beam extends Activity implements CreateNdefMessageCallback {
 		mNfcAdapter.setNdefPushMessageCallback(this, this);
 		
 		// HobbyData
-		hobbyList = new HobbyList( this );
+		myHobbyList = new HobbyList( this );
+		
+		// ListView
+		ListView listView = (ListView) findViewById( R.id.matched_list );
+		arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1 );
+		listView.setAdapter( arrayAdapter );
 	}
 	
 	@Override
 	public NdefMessage createNdefMessage(NfcEvent event) {
-		String text = HobbyList.toJson( hobbyList );
+		String text = HobbyList.toJson( myHobbyList );
 		NdefMessage msg = new NdefMessage(
 				new NdefRecord[]{ NdefRecord.createMime(
 						"application/com.example.hobbymatcher", text.getBytes())});
@@ -62,12 +72,18 @@ public class Beam extends Activity implements CreateNdefMessageCallback {
 	}
 	
 	void processIntent( Intent intent ){
-		TextView textView = (TextView) findViewById(R.id.beam_message);
+		TextView textView = (TextView) findViewById( R.id.beam_message );
 		Parcelable[] rawMsgs = intent.getParcelableArrayExtra(
 				NfcAdapter.EXTRA_NDEF_MESSAGES);
 		NdefMessage msg = (NdefMessage) rawMsgs[0];
 		String str = new String( msg.getRecords()[0].getPayload() );
-		textView.setText( str );
+		HobbyList hisHobbyList = HobbyList.fromJson( str );
+		textView.setText( "マッチング成功" );
+		arrayAdapter.clear();
+		List< Hobby > matched = HobbyList.matchHobbies( myHobbyList.getHobbyList(), hisHobbyList.getHobbyList() );
+		for( final Hobby h : matched ){
+			arrayAdapter.add( h.getHobbyName() );
+		}
 		Log.d( TAG, "get message: " + str );
 	}
 
